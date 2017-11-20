@@ -15,7 +15,7 @@ unsigned int JSHash(const std::string& str);
 unsigned int PJWHash(const std::string& str);
 std::vector< unsigned int >  ELFHash(const std::string& str);
 unsigned int BKDRHash(const std::string& str);
-std::vector< unsigned int > SDBMHash(const std::string& str);
+std::string  SDBMHash(const std::string& str);
 unsigned int DJBHash(const std::string& str);
 unsigned int DEKHash(const std::string& str);
 unsigned int BPHash(const std::string& str);

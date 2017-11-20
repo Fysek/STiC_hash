@@ -92,13 +92,13 @@ unsigned int BKDRHash(const std::string& str)
 
 
 /*hash function*/
-std::vector< unsigned int >  SDBMHash(const std::string& str)
+std::string SDBMHash(const std::string& str)
 {
-	std::vector< unsigned int > hash (64);
+	std::string hash;
 
 	for (size_t i = 0; i < str.length(); i++)
 	{
-		hash.at(i) = str[i] + (hash.at(i) << 6) + (hash.at(i) << 16) - hash.at(i);
+		hash += str[i] + (str[i] << 6) + (str[i] << 16);
 	}
 
 	return hash;

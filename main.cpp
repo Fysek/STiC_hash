@@ -10,7 +10,7 @@
 int main()
 {
 	int x;
-	test(1, 1000);
+	test(1, 100);
 	std::cin >> x;
 	return 0;
 	

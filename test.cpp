@@ -1,21 +1,18 @@
 #include "test.h"
 
 const int LEN_TAB = 50;
-std::list < std::vector< unsigned int > > lista;
-std::vector< unsigned int > hash;
+std::list < std::string > lista;
 
 void display()
 {
 
 	//system("CLS");
 	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
-	std::cout << " ZAWARTOSC LISTY: " << std::endl;
+	std::cout << " CONTENT OF THE LIST: " << std::endl;
 	std::cout << "---------------------------" << std::endl;
 	
-	for (std::list<std::vector< unsigned int >>::iterator i = lista.begin(); i != lista.end(); ++i) {
-		for (std::vector< unsigned int >::iterator j = i->begin(); j != i->end(); ++j) {
-			std::cout << std::hex << *j << " " << std::endl;
-		}
+	for (std::list<std::string>::iterator i = lista.begin(); i != lista.end(); ++i) {
+			std::cout << *i << " " << std::endl;	
 	}
 
 	std::cout << std::endl;
@@ -27,20 +24,21 @@ void display()
 
 void push_front()
 {
+	std::string stringHash;
 	std::vector< unsigned int > liczba;
 	std::cout << "Podaj jaka liczbe wstawic na pocz\245tek listy: ";
-	std::cin >> liczba.back();
-	lista.push_front(liczba);
+	std::cin >> stringHash;
+	lista.push_front(stringHash);
 }
 
 //--------- 2 -----------
 
 void push_back()
 {
-	std::vector< unsigned int > liczba;
+	std::string stringHash;
 	std::cout << "Podaj jaka liczbe wstawic na koniec listy: ";
-	std::cin >> liczba.back();
-	lista.push_back(liczba);
+	std::cin >> stringHash;
+	lista.push_back(stringHash);
 }
 
 //---------- 3 ---------
@@ -107,7 +105,7 @@ void exit()
 //------------------------
 
 void delEqual() {
-	std::list<std::vector< unsigned int >>::iterator it1, it2;
+	std::list<std::string >::iterator it1, it2;
 	it1 = it2 = lista.begin();
 	it2++;
 	while (it1!=lista.end()) {
@@ -129,39 +127,35 @@ void delEqual() {
 }
 
 
-
-std::string genHash(void)
-{
-	
-	char sTab[LEN_TAB];
-	static const char alphanum[] =
-		"0123456789"
-		"!@#$%^&*"
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		"abcdefghijklmnopqrstuvwxyz";
-	int stringLength = sizeof(alphanum) - 1;
+void delWrongSize(int size) {
 	std::string str;
-	for (int i = 0; i < LEN_TAB; ++i) {
-		sTab[i] = alphanum[rand() % stringLength];
+	std::list<std::string >::iterator it;
+	it = lista.begin();
+	while (it != lista.end()) {
+		 str = *it;
+		if (str.size() != size)
+			it = lista.erase(it);
+		else
+			it++;
 	}
-	str = sTab;
-	return str;
+
 }
 
-
-void gen_random(char *s, const int len) {
-
-	static const char alphanum[] =
+std::string generateRandomString(size_t length)
+{
+	const char* charmap =
 		"0123456789"
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		"abcdefghijklmnopqrstuvwxyz";
-
-	for (int i = 0; i < len; ++i) {
-		s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
-	}
-
-	s[len] = 0;
+	const size_t charmapLength = strlen(charmap);
+	auto generator = [&]() { return charmap[rand() % charmapLength]; };
+	std::string result;
+	result.reserve(length);
+	std::generate_n(std::back_inserter(result), length, generator);
+	return result;
 }
+
+
 
 
 void test(unsigned int v, unsigned int n) {
@@ -172,32 +166,62 @@ void test(unsigned int v, unsigned int n) {
 	* eff = n-retr/n
 	*
 	*/
-	std::vector< unsigned int > hash (64);
 	std::string strHash;
 	float eff, sBefore, sAfter;
+	float max = 100;
 	if (v == 1)
 	{
 		for (unsigned int i = 1; i < n + 1; i++) {
-			strHash = genHash();
-			hash = SDBMHash(strHash);//replace with your function from hashfunctions
-			lista.push_back(hash);
+			strHash = generateRandomString(64);
+			strHash = SDBMHash(strHash);
+			lista.push_back(strHash);
 		}
-		lista.sort();
+		display();
 		sBefore = lista.size();
 		delEqual();
+		delWrongSize(64);
 		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
 		display();
 		eff = (sAfter / sBefore)*100 ;
-		std::cout << "Efektywnosc na poziomie: "<< eff << "%" <<std::endl;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
 		
 	}
 	else if (v == 2)
 	{
-		//return eff;
+		for (unsigned int i = 1; i < n + 1; i++) {
+			strHash = generateRandomString(96);
+			strHash = SDBMHash(strHash);//replace with your function from hashfunctions
+			lista.push_back(strHash);
+		}
+		display();
+		sBefore = lista.size();
+		delEqual();
+		delWrongSize(96);
+		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
+		display();
+		eff = (sAfter / sBefore) * 100;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
+
 	}
+	
 	else if (v == 3)
 	{
-		//return eff;
+		for (unsigned int i = 1; i < n + 1; i++) {
+			strHash = generateRandomString(128);
+			strHash = SDBMHash(strHash);//replace with your function from hashfunctions
+			lista.push_back(strHash);
+		}
+		display();
+		sBefore = lista.size();
+		delEqual();
+		delWrongSize(96);
+		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
+		display();
+		eff = (sAfter / sBefore) * 100;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
 	}
 	else
 	{
