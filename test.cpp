@@ -216,7 +216,7 @@ void test(unsigned int v, unsigned int n) {
 		display();
 		sBefore = lista.size();
 		delEqual();
-		delWrongSize(96);
+		delWrongSize(128);
 		sAfter = lista.size();
 		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
 		display();
