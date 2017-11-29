@@ -7,5 +7,6 @@
 #include <algorithm> 
 #include <iterator>
 
-void test(unsigned int v, unsigned int n);
+void test_random(unsigned int v, unsigned int n);
+void test(unsigned int v, std::vector <std::string> &vec);
 #endif

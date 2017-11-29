@@ -22,87 +22,6 @@ void display()
 
 //-------- 1 ------------
 
-void push_front()
-{
-	std::string stringHash;
-	std::vector< unsigned int > liczba;
-	std::cout << "Podaj jaka liczbe wstawic na pocz\245tek listy: ";
-	std::cin >> stringHash;
-	lista.push_front(stringHash);
-}
-
-//--------- 2 -----------
-
-void push_back()
-{
-	std::string stringHash;
-	std::cout << "Podaj jaka liczbe wstawic na koniec listy: ";
-	std::cin >> stringHash;
-	lista.push_back(stringHash);
-}
-
-//---------- 3 ---------
-
-void pop_front()
-{
-	std::cout << "Nast\245pi usuni\251cie liczby z pocz\245tku listy";
-	Sleep(2000);
-	lista.pop_front();
-}
-
-//---------- 4 ---------
-
-void pop_back()
-{
-	std::cout << "Nast\245pi usuni\251cie liczby z konca listy";
-	Sleep(2000);
-	lista.pop_back();
-}
-
-//---------- 5 ----------
-
-void size()
-{
-	std::cout << "Liczb na li\230cie: " << lista.size();
-	Sleep(2000);
-}
-
-//---------- 6 ----------
-
-void max_size()
-{
-	std::cout << "Max liczb na li\230cie: " << lista.max_size();
-	Sleep(5000);
-}
-
-//---------- 7 ----------
-
-void empty()
-{
-	std::cout << "Czy lista pusta? -> ";
-	if (lista.empty() == 1) std::cout << "TRUE"; else std::cout << "FALSE";
-	Sleep(2000);
-}
-
-//---------- 8 ----------
-
-void reverse()
-{
-	std::cout << "Nastapi odwrocenie kolejnosci liczb!";
-	lista.reverse();
-	Sleep(2000);
-}
-
-//---------- 9 ----------
-
-void exit()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-	std::cout << "Koniec programu!";
-	Sleep(2000);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
-}
-//------------------------
 
 void delEqual() {
 	std::list<std::string >::iterator it1, it2;
@@ -155,10 +74,7 @@ std::string generateRandomString(size_t length)
 	return result;
 }
 
-
-
-
-void test(unsigned int v, unsigned int n) {
+void test_random(unsigned int v, unsigned int n) {
 	/* v = 1. 64B; 2. 96B; 3. 128B
 	* n - how many hashes we generate
 	* we need hash functions or table with hashes
@@ -230,3 +146,72 @@ void test(unsigned int v, unsigned int n) {
 	}
 }
 
+void test(unsigned int v, std::vector <std::string> &vec) {
+   /* v = 1. 64B; 2. 96B; 3. 128B
+	* n - how many hashes we generate
+	* we need hash functions or table with hashes
+	* if equal then we do sth
+	* eff = n-retr/n
+	*
+	*/
+	std::string strHash;
+
+	float eff, sBefore, sAfter;
+	float max = 100;
+
+	if (v == 1)
+	{
+		for (int i = 0 ; i < vec.size(); i++) {
+			strHash = SDBMHash(vec[i]);
+			lista.push_back(strHash);
+		}
+
+		display();
+		sBefore = lista.size();
+		delEqual();
+		delWrongSize(64);
+		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
+		display();
+		eff = (sAfter / sBefore) * 100;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
+	}
+	else if (v == 2)
+	{
+		for (int i = 0; i < vec.size(); i++) {
+			strHash = SDBMHash(vec[i]);
+			lista.push_back(strHash);
+		}
+		display();
+		sBefore = lista.size();
+		delEqual();
+		delWrongSize(96);
+		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
+		display();
+		eff = (sAfter / sBefore) * 100;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
+
+	}
+	else if (v == 3)
+	{
+		for (int i = 0; i < vec.size(); i++) {
+			strHash = SDBMHash(vec[i]);
+			lista.push_back(strHash);
+		}
+		display();
+		sBefore = lista.size();
+		delEqual();
+		delWrongSize(128);
+		sAfter = lista.size();
+		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
+		display();
+		eff = (sAfter / sBefore) * 100;
+		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
+	}
+	else
+	{
+		std::cout << "Error, wrong length" << std::endl;
+		//return 0;
+	}
+}
