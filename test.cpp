@@ -12,7 +12,7 @@ void display()
 	std::cout << "---------------------------" << std::endl;
 	
 	for (std::list<std::string>::iterator i = lista.begin(); i != lista.end(); ++i) {
-			std::cout << *i << " " << std::endl;	
+			std::cout<< std::hex << *i << " " << std::endl;	
 	}
 
 	std::cout << std::endl;
@@ -165,7 +165,6 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 			strHash = SDBMHash(vec[i]);
 			lista.push_back(strHash);
 		}
-
 		display();
 		sBefore = lista.size();
 		delEqual();
