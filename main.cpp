@@ -6,6 +6,7 @@
 * do zmiany:
 * stringi o danej dlugosci musi zmieniac do hashu 64 bajty etc. xor operation
 * test, dla roznicy przeklaman
+* dopelnianie niepe³nych buforow
 * opracowac schemat
 * opracowanie wynikow
 *
@@ -31,9 +32,14 @@ int main(){
 	std::vector <std::string> wyjscie;
 	
 	
-	wyjscie = bufor(haslo);
+	//wyjscie = bufor(haslo);
+	//for (std::vector<std::string>::iterator i = wyjscie.begin(); i != wyjscie.end(); ++i) {
+	//	std::cout << *i<< std::endl;
+	//}
 
-	test(1, wyjscie);
+
+
+	//test(1, wyjscie);
 	//test_random(1, 2);
 	system("pause");
 	return 0;

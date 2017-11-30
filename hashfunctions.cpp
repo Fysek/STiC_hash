@@ -126,24 +126,107 @@ char FSTable(char s) {
 	case 'y':
     	return 'X';	
 	case 'z':
-    	return 'V';		
-			
+    	return 'V';	
+	default:
+		return 'x';
 	}
-
 }
 
 /*hash function*////////////////////////////////////
-std::string SDBMHash(const std::string& str)
+
+///inut vector of 16byte strings, time to do some shit 
+//maybe int n for three different sizes
+// 
+
+std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 {
+
 	std::string hash;
 	char subhash;
 
-	for (size_t i = 0; i < str.length(); i++)
-	{
-		subhash = FSTable(str[i]);
-		hash += subhash + (subhash << 6) + (subhash << 16);
+
+	if (version = 64) {
+		//proponuje tutaj  wziac co 4 stringi 16bajtowe i porobic cos na nich a potem xorowac
+		/*
+			    vector string
+		    po 16 bajtow na cztery
+			\/    \/    \/    \/
+			\/    \/    \/    \/
+		   |  |  |  |  |  |  |  |
+		   |  |  |  |  |  |  |  |
+		   |  |  |  |  |  |  |  |
+		     \     |    |     /
+			  \  + |  + |  + /
+
+				   64bajty	
+
+			kazdy z tych czterech moze miec rozne operacje potem je laczymy w stringi 64 bajtowe 
+			dla wiekszych hashy podobnie tylko uzywamu dla 96 6 blokow po 16 a 128 8 blokow po 16
+		*/
+
+		//////////pierwszy blok/////////////////
+		for (int i = 0; i < vec_str.size(); i+4 )
+		{
+			hash = vec_str[i];
+			subhash = FSTable(hash[i]);
+			hash += subhash + (subhash << 6) + (subhash << 16);
+		}
+
+		//////////drugi blok/////////////////
+		for (int i = 1; i < vec_str.size(); i + 4)
+		{
+			subhash = FSTable(hash[i]);
+			hash += subhash + (subhash << 6) + (subhash << 16);
+		}
+
+		//////////trzeci blok/////////////////
+		for (int i = 2; i < vec_str.size(); i + 4)
+		{
+			subhash = FSTable(hash[i]);
+			hash += subhash + (subhash << 6) + (subhash << 16);
+		}
+
+		//////////czwarty blok/////////////////
+		for (int i = 3; i < vec_str.size(); i + 4)
+		{
+			subhash = FSTable(hash[i]);
+			hash += subhash + (subhash << 6) + (subhash << 16);
+		}
+
+		return hash;
+
+
+	}else if (version = 96) {
+
+		/*
+			vector string
+		    po 16 bajtow na szesc
+			\/    \/    \/    \/    \/    \/
+			\/    \/    \/    \/    \/    \/
+		   |  |  |  |  |  |  |  |  |  |  |  |
+		   |  |  |  |  |  |  |  |  |  |  |  |
+		
+		*/
+
+		for (std::vector<std::string>::iterator i = vec_str.begin(); i != vec_str.end(); )
+		{
+			subhash = FSTable(hash[i]);
+			hash += subhash + (subhash << 6) + (subhash << 16);
+		}
+
+		return hash;
+	}else if (version = 128) {
+
+		return hash;
+	}else {
+		std::cout << "Error, wrong version value" << std::endl;
+		return 0;
 	}
 
-	return hash;
+
+
+
+
+	
 }
 

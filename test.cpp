@@ -74,7 +74,7 @@ std::string generateRandomString(size_t length)
 	return result;
 }
 
-void test_random(unsigned int v, unsigned int n) {
+void test_random(unsigned int version, unsigned int n) {
 	/* v = 1. 64B; 2. 96B; 3. 128B
 	* n - how many hashes we generate
 	* we need hash functions or table with hashes
@@ -85,11 +85,15 @@ void test_random(unsigned int v, unsigned int n) {
 	std::string strHash;
 	float eff, sBefore, sAfter;
 	float max = 100;
-	if (v == 1)
+	if (version == 64)
 	{
-		for (unsigned int i = 1; i < n + 1; i++) {
-			strHash = generateRandomString(64);
-			strHash = SDBMHash(strHash);
+		for (unsigned int i = 0; i < n ; i++) {
+			std::vector <std::string> rand_vec;
+			for (int k = 0; k < SEED;k++) {
+				strHash = generateRandomString(16);
+				rand_vec.push_back(strHash);
+			}
+			strHash = SDBMHash(rand_vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -103,11 +107,15 @@ void test_random(unsigned int v, unsigned int n) {
 		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
 		
 	}
-	else if (v == 2)
+	else if (version == 96)
 	{
-		for (unsigned int i = 1; i < n + 1; i++) {
-			strHash = generateRandomString(96);
-			strHash = SDBMHash(strHash);//replace with your function from hashfunctions
+		for (unsigned int i = 0; i < n; i++) {
+			std::vector <std::string> rand_vec;
+			for (int k = 0; k < SEED;k++) {
+				strHash = generateRandomString(16);
+				rand_vec.push_back(strHash);
+			}
+			strHash = SDBMHash(rand_vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -121,12 +129,15 @@ void test_random(unsigned int v, unsigned int n) {
 		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
 
 	}
-	
-	else if (v == 3)
+	else if (version == 128)
 	{
-		for (unsigned int i = 1; i < n + 1; i++) {
-			strHash = generateRandomString(128);
-			strHash = SDBMHash(strHash);//replace with your function from hashfunctions
+		for (unsigned int i = 0; i < n; i++) {
+			std::vector <std::string> rand_vec;
+			for (int k = 0; k < SEED;k++) {
+				strHash = generateRandomString(16);
+				rand_vec.push_back(strHash);
+			}
+			strHash = SDBMHash(rand_vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -141,7 +152,7 @@ void test_random(unsigned int v, unsigned int n) {
 	}
 	else
 	{
-		std::cout << "Error, wrong length" << std::endl;
+		std::cout << "Error, wrong version value" << std::endl;
 		//return 0;
 	}
 }
@@ -162,7 +173,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	if (v == 1)
 	{
 		for (int i = 0 ; i < vec.size(); i++) {
-			strHash = SDBMHash(vec[i]);
+			strHash = SDBMHash(vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -178,7 +189,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	else if (v == 2)
 	{
 		for (int i = 0; i < vec.size(); i++) {
-			strHash = SDBMHash(vec[i]);
+			strHash = SDBMHash(vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -195,7 +206,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	else if (v == 3)
 	{
 		for (int i = 0; i < vec.size(); i++) {
-			strHash = SDBMHash(vec[i]);
+			strHash = SDBMHash(vec);
 			lista.push_back(strHash);
 		}
 		display();
@@ -210,7 +221,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	}
 	else
 	{
-		std::cout << "Error, wrong length" << std::endl;
+		std::cout << "Error, wrong version value" << std::endl;
 		//return 0;
 	}
 }
