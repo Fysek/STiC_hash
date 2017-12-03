@@ -9,7 +9,7 @@
 
 
 char FSTable(char s);
-std::string SDBMHash(std::vector <std::string>  &vec_str);
+std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version);
 
 
 #endif

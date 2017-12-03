@@ -10,9 +10,9 @@ void display()
 	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	std::cout << " CONTENT OF THE LIST: " << std::endl;
 	std::cout << "---------------------------" << std::endl;
-	
+
 	for (std::list<std::string>::iterator i = lista.begin(); i != lista.end(); ++i) {
-			std::cout<< std::hex << *i << " " << std::endl;	
+			std::cout<< std::hex << *i << " " << std::endl;
 	}
 
 	std::cout << std::endl;
@@ -93,7 +93,7 @@ void test_random(unsigned int version, unsigned int n) {
 				strHash = generateRandomString(16);
 				rand_vec.push_back(strHash);
 			}
-			strHash = SDBMHash(rand_vec);
+			strHash = SDBMHash(rand_vec, 64);
 			lista.push_back(strHash);
 		}
 		display();
@@ -105,7 +105,7 @@ void test_random(unsigned int version, unsigned int n) {
 		display();
 		eff = (sAfter / sBefore)*100 ;
 		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
-		
+
 	}
 	else if (version == 96)
 	{
@@ -115,7 +115,7 @@ void test_random(unsigned int version, unsigned int n) {
 				strHash = generateRandomString(16);
 				rand_vec.push_back(strHash);
 			}
-			strHash = SDBMHash(rand_vec);
+			strHash = SDBMHash(rand_vec, 96);
 			lista.push_back(strHash);
 		}
 		display();
@@ -137,7 +137,7 @@ void test_random(unsigned int version, unsigned int n) {
 				strHash = generateRandomString(16);
 				rand_vec.push_back(strHash);
 			}
-			strHash = SDBMHash(rand_vec);
+			strHash = SDBMHash(rand_vec,128);
 			lista.push_back(strHash);
 		}
 		display();
@@ -173,7 +173,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	if (v == 1)
 	{
 		for (int i = 0 ; i < vec.size(); i++) {
-			strHash = SDBMHash(vec);
+			strHash = SDBMHash(vec,64);
 			lista.push_back(strHash);
 		}
 		display();
@@ -189,7 +189,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	else if (v == 2)
 	{
 		for (int i = 0; i < vec.size(); i++) {
-			strHash = SDBMHash(vec);
+			strHash = SDBMHash(vec, 96);
 			lista.push_back(strHash);
 		}
 		display();
@@ -206,7 +206,7 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	else if (v == 3)
 	{
 		for (int i = 0; i < vec.size(); i++) {
-			strHash = SDBMHash(vec);
+			strHash = SDBMHash(vec, 128);
 			lista.push_back(strHash);
 		}
 		display();
