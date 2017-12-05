@@ -153,7 +153,7 @@ char FSTable(char s) {
 
 /*hash function*////////////////////////////////////
 
-///inut vector of 16byte strings, time to do some shit
+//inut vector of 16byte strings, time to do some shit
 //maybe int n for three different sizes
 //
 
@@ -168,7 +168,7 @@ std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 	std::string blok5 = "5678901234567890";
 	std::string blok6 = "2345678901234567";
 	std::string blok7 = "7890123456789012";
-	std::string blok8 = "9012345678901234";
+	std::string blok8 = "8901234567890123";
 
 	char subhash;
 
@@ -189,7 +189,7 @@ std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 		//////////drugi blok/////////////////
 		for (int j = 1; j < vec_str.size(); j=j + 4)
 		{
-		     hash = vec_str[j];
+		    hash = vec_str[j];
             subhash = FSTable(hash[j]);
 			hash += subhash + (subhash << 2) + (subhash << 13);
             for(int ii = 0; ii<15; ii++)

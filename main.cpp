@@ -19,10 +19,16 @@ using namespace std;
 std::vector <std::string> bufor(std::string input){
 	int i;
 	std::string x;
+	std::string buff = "5678901234567890";
 	std::vector < std::string > dane;
 	for (i = 0;i<input.size();i = i + 16)
 	{
 		x = input.substr(i, 16);
+		if (x.size() < 16) {
+			for (int k = x.size(); k<16; k++){
+				x.push_back((x[x.size()]-'0')^(buff[k]-'0') +'0');
+			}
+		}
 		dane.push_back(x);
 	}
 	return dane;
