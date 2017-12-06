@@ -1,3 +1,9 @@
+///////////////////////////////////////////////
+/* Authors:									 */
+/* Krzysztof Jania							 */
+/* Grzegorz Janusz							 */
+/* Mateusz Dyrdó³							 */
+///////////////////////////////////////////////
 #include "test.h"
 
 const int LEN_TAB = 50;
@@ -6,21 +12,16 @@ std::list < std::string > lista;
 void display()
 {
 
-	//system("CLS");
-	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	std::cout << " CONTENT OF THE LIST: " << std::endl;
 	std::cout << "---------------------------" << std::endl;
 
 	for (std::list<std::string>::iterator i = lista.begin(); i != lista.end(); ++i) {
-			std::cout<< std::hex << *i << " " << std::endl;
+			std::cout<< std::hex << *i << " " ;
 	}
 
 	std::cout << std::endl;
 	std::cout << "---------------------------" << std::endl << std::endl;
-	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
-
-//-------- 1 ------------
 
 
 void delEqual() {
@@ -30,7 +31,7 @@ void delEqual() {
 	while (it1!=lista.end()) {
 		if (it2 != lista.end()) {
 			if (*it1 == *it2) {
-				it2 = lista.erase(it2);//usuniecie i skok na nastpne
+				it2 = lista.erase(it2);
 			}
 			else {
 				it2++;
@@ -75,13 +76,6 @@ std::string generateRandomString(size_t length)
 }
 
 void test_random(unsigned int version, unsigned int n) {
-	/* v = 1. 64B; 2. 96B; 3. 128B
-	* n - how many hashes we generate
-	* we need hash functions or table with hashes
-	* if equal then we do sth
-	* eff = n-retr/n
-	*
-	*/
 	std::string strHash;
 	float eff, sBefore, sAfter;
 	float max = 100;
@@ -96,13 +90,11 @@ void test_random(unsigned int version, unsigned int n) {
 			strHash = SDBMHash(rand_vec, 64);
 			lista.push_back(strHash);
 		}
-		display();
 		sBefore = lista.size();
 		delEqual();
-		delWrongSize(64);
+		delWrongSize(128);
 		sAfter = lista.size();
 		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
-		display();
 		eff = (sAfter / sBefore)*100 ;
 		std::cout << "Conficts in: " << max - eff << "% hashes" << std::endl;
 
@@ -118,10 +110,9 @@ void test_random(unsigned int version, unsigned int n) {
 			strHash = SDBMHash(rand_vec, 96);
 			lista.push_back(strHash);
 		}
-		display();
 		sBefore = lista.size();
 		delEqual();
-		delWrongSize(96);
+		delWrongSize(192);
 		sAfter = lista.size();
 		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
 		display();
@@ -140,10 +131,9 @@ void test_random(unsigned int version, unsigned int n) {
 			strHash = SDBMHash(rand_vec,128);
 			lista.push_back(strHash);
 		}
-		display();
 		sBefore = lista.size();
 		delEqual();
-		delWrongSize(128);
+		delWrongSize(256);
 		sAfter = lista.size();
 		std::cout << "After deleting repeating and wrong hashes  " << std::endl;
 		display();
@@ -153,18 +143,10 @@ void test_random(unsigned int version, unsigned int n) {
 	else
 	{
 		std::cout << "Error, wrong version value" << std::endl;
-		//return 0;
 	}
 }
 
 void test(unsigned int v, std::vector <std::string> &vec) {
-   /* v = 1. 64B; 2. 96B; 3. 128B
-	* n - how many hashes we generate
-	* we need hash functions or table with hashes
-	* if equal then we do sth
-	* eff = n-retr/n
-	*
-	*/
 	std::string strHash;
 
 	float eff, sBefore, sAfter;
@@ -222,6 +204,5 @@ void test(unsigned int v, std::vector <std::string> &vec) {
 	else
 	{
 		std::cout << "Error, wrong version value" << std::endl;
-		//return 0;
 	}
 }

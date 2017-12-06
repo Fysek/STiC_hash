@@ -1,3 +1,9 @@
+///////////////////////////////////////////////
+/* Authors:									 */
+/* Krzysztof Jania							 */
+/* Grzegorz Janusz							 */
+/* Mateusz Dyrdó³							 */
+///////////////////////////////////////////////
 #ifndef INCLUDE_TEST_CPP_H
 #define INCLUDE_TEST_CPP_H
 #include "hashfunctions.h"
@@ -6,7 +12,7 @@
 #include <windows.h>
 #include <algorithm> 
 #include <iterator>
-#define SEED 15
+#define SEED 5
 
 void test_random(unsigned int v, unsigned int n);
 void test(unsigned int v, std::vector <std::string> &vec);

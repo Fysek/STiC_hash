@@ -1,20 +1,11 @@
 ///////////////////////////////////////////////
-/* any sequence of 8-bit symbols on input    */
-/* return sequence of 64, 96 or 128 bytes    */
+/* Authors:									 */
+/* Krzysztof Jania							 */
+/* Grzegorz Janusz							 */
+/* Mateusz Dyrdół							 */
 ///////////////////////////////////////////////
-/*
-* do zmiany:
-* stringi o danej dlugosci musi zmieniac do hashu 64 bajty etc. xor operation
-* test, dla roznicy przeklaman
-* dopelnianie niepe³nych buforow
-* opracowac schemat
-* opracowanie wynikow
-*
-*/
 #include "hashfunctions.h"
 #include "test.h"
-
-using namespace std;
 
 std::vector <std::string> bufor(std::string input){
 	int i;
@@ -39,25 +30,23 @@ int main(){
 	std::vector <std::string> wyjscie;
 	std::vector <std::string> wyjscie1;
 
+    std::string dane1 = "abcdpedidualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia";
+    std::string dane = "Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia";
+	
+	wyjscie = bufor(dane);
+	wyjscie1 = bufor(dane1);
 
-	//wyjscie = bufor(haslo);
-	//for (std::vector<std::string>::iterator i = wyjscie.begin(); i != wyjscie.end(); ++i) {
-	//	std::cout << *i<< std::endl;
-	//}
-    string dane1 = "Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Woxna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia";
-    string dane = "Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia Wikipediaualizację jej t: „Wolna encyklopedia";
-    wyjscie = bufor(dane);
-    wyjscie1 = bufor(dane1);
-    SDBMHash(wyjscie,64);
-    SDBMHash(wyjscie,128);
-    SDBMHash(wyjscie,96);
-    SDBMHash(wyjscie1,64);
-    SDBMHash(wyjscie1,128);
-    SDBMHash(wyjscie1,96);
+	SDBMHash(wyjscie,64);
+	SDBMHash(wyjscie,96);
+	SDBMHash(wyjscie,128);
+	SDBMHash(wyjscie1,64);
+	SDBMHash(wyjscie1,96);
+	SDBMHash(wyjscie1,128);
 
-
+	//uncomment to use tests
 	//test(1, wyjscie);
-	//test_random(1, 2);
+	//test_random(64, 100000);
+
 	system("pause");
 	return 0;
 

@@ -1,3 +1,9 @@
+///////////////////////////////////////////////
+/* Authors:									 */
+/* Krzysztof Jania							 */
+/* Grzegorz Janusz							 */
+/* Mateusz Dyrdó³							 */
+///////////////////////////////////////////////
 #include "hashfunctions.h"
 #include <iostream>
 
@@ -151,15 +157,9 @@ char FSTable(char s) {
 	}
 }
 
-/*hash function*////////////////////////////////////
-
-//inut vector of 16byte strings, time to do some shit
-//maybe int n for three different sizes
-//
 
 std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 {
-
 	std::string hash;
 	std::string blok1 = "1234567890123456";
 	std::string blok2 = "4567890123456789";
@@ -171,7 +171,6 @@ std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 	std::string blok8 = "8901234567890123";
 
 	char subhash;
-
 
 	if (version == 64) {
 		//////////pierwszy blok/////////////////
@@ -410,11 +409,5 @@ std::string SDBMHash(std::vector <std::string>  &vec_str, unsigned int version)
 		std::cout << "Error, wrong version value" << std::endl;
 		return 0;
 	}
-
-
-
-
-
-
 }
 
